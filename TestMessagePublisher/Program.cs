@@ -6,12 +6,9 @@
 
     using Messages.Events;
 
-    using NHibernate.Cfg;
-
     using NServiceBus;
     using NServiceBus.Log4Net;
     using NServiceBus.Logging;
-    using NServiceBus.Persistence;
 
     public class Program
     {
@@ -55,13 +52,15 @@
 
         private static void PublishAgreementPlacedForRemoteBrokerEvent(ISendOnlyBus bus)
         {
-            var agreementPlacedEvent = CreateAgreementPlacedEvent(123);
+            const int RemoteBrokerId = 123;
+            var agreementPlacedEvent = CreateAgreementPlacedEvent(RemoteBrokerId);
             bus.Publish(agreementPlacedEvent);
         }
 
         private static void PublishAgreementPlacedForOnlineBrokerEvent(ISendOnlyBus bus)
         {
-            var agreementPlacedEvent = CreateAgreementPlacedEvent(456);
+            const int OnlineBrokerId = 456;
+            var agreementPlacedEvent = CreateAgreementPlacedEvent(OnlineBrokerId);
             bus.Publish(agreementPlacedEvent);
         }
 
