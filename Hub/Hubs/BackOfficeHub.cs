@@ -7,6 +7,8 @@
     using System.Threading.Tasks;
     using Contracts;
 
+    using IdentityInfrastructure.Constants;
+
     using Managers;
 
     using Messages;
@@ -160,10 +162,9 @@
 
         private static DateTime GetTokenExpiresOnDateFromClaims(ClaimsPrincipal claimsPrincipal)
         {
-            return DateTime.UtcNow.AddMinutes(
-                int.Parse(
-                    claimsPrincipal.Claims.First(c => c.Type == "ExpiresOn")
-                        .Value));
+            return new DateTime(long.Parse(
+                claimsPrincipal.Claims.First(c => c.Type == IdentityConstants.TokenExpiresOnClaimType)
+                    .Value));
         }
 
         private HubConnectionEvent CreateConnectionEvent(string connectionEventType)

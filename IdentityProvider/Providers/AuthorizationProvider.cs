@@ -1,9 +1,9 @@
 ﻿namespace IdentityProvider.Providers
 {
+    using System;
     using System.Security.Claims;
     using System.Threading.Tasks;
-    
-    using IdentityInfrastructure;
+
     using IdentityInfrastructure.Constants;
 
     using Microsoft.Owin.Security;
@@ -61,6 +61,8 @@
             claimsIdentity.AddClaim(new Claim(ClaimTypes.NameIdentifier, userName));
             claimsIdentity.AddClaim(new Claim(IdentityConstants.IdentityProviderClaimType, userName));
             claimsIdentity.AddClaim(new Claim(ClaimTypes.Name, userName));
+            claimsIdentity.AddClaim(new Claim(ClaimTypes.Name, userName));
+            claimsIdentity.AddClaim(new Claim(IdentityConstants.TokenExpiresOnClaimType, DateTime.UtcNow.AddMinutes(6).Ticks.ToString()));
 
             claimsIdentity.AddClaim(new Claim(ClaimTypes.AuthenticationMethod, IdentityConstants.AuthenticationMethod));
         }

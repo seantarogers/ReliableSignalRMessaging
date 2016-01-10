@@ -4,6 +4,8 @@
     {
         public const string AudienceClaimType = "aud";
 
+        public const string TokenExpiresOnClaimType = "TokenExpiresOn";
+
         public const string AuthenticationMethod = "JwtToken";
 
         public const string Issuer = "IdentityProvider";
