@@ -97,6 +97,10 @@
       <HintPath>..\packages\NServiceBus.5.2.11\lib\net45\NServiceBus.Core.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="NServiceBus.Host, Version=6.0.0.0, Culture=neutral, PublicKeyToken=9fc386479f8a226c, processorArchitecture=MSIL">
+      <HintPath>..\packages\NServiceBus.Host.6.0.0\lib\net45\NServiceBus.Host.exe</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="NServiceBus.NHibernate, Version=6.0.0.0, Culture=neutral, PublicKeyToken=9fc386479f8a226c, processorArchitecture=MSIL">
       <HintPath>..\packages\NServiceBus.NHibernate.6.2.5\lib\net45\NServiceBus.NHibernate.dll</HintPath>
       <Private>True</Private>
@@ -146,6 +150,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controllers\AcknowledgementController.cs" />
+    <Compile Include="EndpointConfig.cs" />
     <Compile Include="Factories\IMessageLogFactory.cs" />
     <Compile Include="Factories\MessageLogFactory.cs" />
     <Compile Include="Handlers\CompletionMessageHandler.cs" />
@@ -162,7 +167,9 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>

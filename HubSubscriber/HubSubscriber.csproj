@@ -93,7 +93,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ServiceHost.cs" />
     <Compile Include="Services\AccessTokenService.cs" />
+    <Compile Include="Services\BackOfficeService.cs" />
     <Compile Include="Services\IAccessTokenService.cs" />
+    <Compile Include="Services\IBackOfficeService.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

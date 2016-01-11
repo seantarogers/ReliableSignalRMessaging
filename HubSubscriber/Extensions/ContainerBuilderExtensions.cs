@@ -20,6 +20,9 @@
             containerBuilder.RegisterType<MessageStore>()
                 .As<IMessageStore>();
 
+            containerBuilder.RegisterType<BackOfficeService>()
+                .As<IBackOfficeService>();
+
             return containerBuilder;
         }
     }
