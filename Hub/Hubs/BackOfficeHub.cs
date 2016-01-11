@@ -51,7 +51,6 @@
         {
             try
             {
-
                 var connectionEvent = CreateConnectionEvent("Disconnected");
                 bus.Publish(connectionEvent);
 
@@ -60,6 +59,7 @@
             catch (Exception exception)
             {
                 Console.WriteLine("There has been an exception: {0}", exception);
+                throw;
             }
             return base.OnDisconnected(stopCalled);
         }
@@ -76,6 +76,7 @@
             catch (Exception exception)
             {
                 Console.WriteLine("There has been an exception: {0}", exception);
+                throw;
             }
             return base.OnReconnected();
         }
@@ -92,6 +93,7 @@
             catch (Exception exception)
             {
                 Console.WriteLine("There has been an exception: {0}", exception);
+                throw;
             }
 
             return base.OnConnected();

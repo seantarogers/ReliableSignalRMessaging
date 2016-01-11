@@ -34,10 +34,8 @@ namespace Hub
                     {
                         map.RunSignalR(hubConfiguration);
                     });
-
-            //GlobalHost.DependencyResolver = autofacResolver;
         }
-        
+
         private static void SetUpMiddleware(IAppBuilder app)
         {
             var jwtOptions = new JwtBearerAuthenticationOptions

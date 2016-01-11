@@ -168,7 +168,6 @@
     <Compile Include="Controllers\AcknowledgementController.cs" />
     <Compile Include="Extensions\BusConfigurationExtensions.cs" />
     <Compile Include="Extensions\ContainerBuilderExtensions.cs" />
-    <Compile Include="Extensions\ContainerExtensions.cs" />
     <Compile Include="Handlers\InsertDocumentIntoRemoteBackOfficeCommandHandler.cs" />
     <Compile Include="Hubs\BackOfficeHub.cs" />
     <Compile Include="IServiceHost.cs" />
