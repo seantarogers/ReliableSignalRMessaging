@@ -19,6 +19,8 @@
 
         private readonly IBackOfficeService backOfficeService;
 
+        private readonly IHubConnectionManager hubConnectionManager;
+
         public InsertDocumentIntoRemoteBackOfficeCommandHandler(
             IBus bus, 
             IMessageStore messageStore, 

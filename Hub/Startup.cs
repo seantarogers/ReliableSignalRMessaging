@@ -18,14 +18,14 @@ namespace Hub
     {
         public void Configuration(IAppBuilder app)
         {
-            app.UseAutofacMiddleware(ServiceHost.Container);
+            app.UseAutofacMiddleware(EndpointConfig.Container);
             SetUpMiddleware(app);
             SetUpSignalR(app);
         }
 
         private static void SetUpSignalR(IAppBuilder app)
         {
-            var autofacResolver = new AutofacDependencyResolver(ServiceHost.Container);
+            var autofacResolver = new AutofacDependencyResolver(EndpointConfig.Container);
             var hubConfiguration = new HubConfiguration { EnableDetailedErrors = true, Resolver = autofacResolver };
 
             app.Map(

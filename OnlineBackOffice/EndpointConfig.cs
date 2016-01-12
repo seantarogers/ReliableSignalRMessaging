@@ -1,4 +1,5 @@
-﻿namespace Saga.Extensions
+
+namespace OnlineBackOffice
 {
     using System;
 
@@ -6,30 +7,32 @@
 
     using NServiceBus;
 
-    public static class BusConfigurationExtensions
+    using Extensions;
+    
+    public class EndpointConfig : IConfigureThisEndpoint
     {
-        public static BusConfiguration Configure(this BusConfiguration busConfiguration, IContainer container)
+        public void Customize(BusConfiguration busConfiguration)
         {
-            busConfiguration.EndpointName("Saga");
+            var container = CreateContainer();
+
+            busConfiguration.EndpointName("OnlineBackOffice");
             busConfiguration.UseSerialization<JsonSerializer>();
 
-            //busConfiguration.DisableFeature<Audit>();
             busConfiguration.UsePersistence<NHibernatePersistence>();
 
             busConfiguration.EnableInstallers();
             ApplyCustomConventions(busConfiguration);
             ConfigureAssembliesToScan(busConfiguration);
 
-            busConfiguration.UseContainer<AutofacBuilder>(c => c.ExistingLifetimeScope(container));
-            return busConfiguration;
+            busConfiguration.UseContainer<AutofacBuilder>(c => c.ExistingLifetimeScope(container));            
         }
-        
+
         private static void ConfigureAssembliesToScan(BusConfiguration busConfiguration)
         {
             busConfiguration.AssembliesToScan(
                 AllAssemblies.Matching("NServiceBus")
                     .And("Messages")
-                    .And("Saga"));
+                    .And("OnlineBackOffice"));
         }
 
         private static void ApplyCustomConventions(BusConfiguration busConfiguration)
@@ -40,6 +43,14 @@
 
             conventions.DefiningTimeToBeReceivedAs(
                 t => t.Name.EndsWith("Expires") ? TimeSpan.FromSeconds(30) : TimeSpan.MaxValue);
+        }
+        
+        private static IContainer CreateContainer()
+        {
+            var containerBuilder = new ContainerBuilder();
+            containerBuilder.RegisterComponents();
+            var container = containerBuilder.Build();
+            return container;
         }
     }
 }

@@ -1,15 +1,20 @@
-﻿namespace DocumentDownloader.Extensions
+
+namespace DocumentDownloader
 {
     using System;
 
     using Autofac;
 
-    using NServiceBus;
+    using Extensions;
 
-    public static class BusConfigurationExtensions
+    using NServiceBus;
+    
+    public class EndpointConfig : IConfigureThisEndpoint
     {
-        public static BusConfiguration Configure(this BusConfiguration busConfiguration, IContainer container)
+        public void Customize(BusConfiguration busConfiguration)
         {
+            var container = CreateContainer();
+
             busConfiguration.EndpointName("DocumentDownloader");
             busConfiguration.UseSerialization<JsonSerializer>();
 
@@ -20,8 +25,8 @@
             ConfigureAssembliesToScan(busConfiguration);
 
             busConfiguration.UseContainer<AutofacBuilder>(c => c.ExistingLifetimeScope(container));
-            return busConfiguration;
         }
+        
         private static void ConfigureAssembliesToScan(BusConfiguration busConfiguration)
         {
             busConfiguration.AssembliesToScan(
@@ -38,6 +43,14 @@
 
             conventions.DefiningTimeToBeReceivedAs(
                 t => t.Name.EndsWith("Expires") ? TimeSpan.FromSeconds(30) : TimeSpan.MaxValue);
+        }
+
+        private static IContainer CreateContainer()
+        {
+            var containerBuilder = new ContainerBuilder();
+            containerBuilder.RegisterComponents();
+            var container = containerBuilder.Build();
+            return container;
         }
     }
 }

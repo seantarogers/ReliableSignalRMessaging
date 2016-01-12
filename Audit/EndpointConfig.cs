@@ -1,3 +1,4 @@
+
 namespace Audit
 {
     using System;
@@ -9,19 +10,51 @@ namespace Audit
     using Microsoft.Owin.Hosting;
 
     using NServiceBus;
+    using NServiceBus.Features;
     
-    public class EndpointConfig : IConfigureThisEndpoint
-    {
-        public void Customize(BusConfiguration configuration)
+    public class EndpointConfig : IConfigureThisEndpoint, AsA_Server
+    {   
+        public static IContainer Container { get; private set; }
+
+        public void Customize(BusConfiguration busConfiguration)
         {
-            var container = CreateContainer();
-            configuration.Configure(container);
+            Container = CreateContainer();
+            busConfiguration.EndpointName("Audit");
+            busConfiguration.UseSerialization<JsonSerializer>();
+
+            busConfiguration.DisableFeature<Audit>();
+            busConfiguration.UsePersistence<NHibernatePersistence>();
+
+            busConfiguration.EnableInstallers();
+            ApplyCustomConventions(busConfiguration);
+            ConfigureAssembliesToScan(busConfiguration);
+            busConfiguration.UseContainer<AutofacBuilder>(c => c.ExistingLifetimeScope(Container));
+
+            StartOwinWebHost();
         }
 
+        private static void ConfigureAssembliesToScan(BusConfiguration busConfiguration)
+        {
+            busConfiguration.AssembliesToScan(
+                AllAssemblies.Matching("NServiceBus")
+                    .And("Messages")
+                    .And("Audit"));
+        }
+
+        private static void ApplyCustomConventions(BusConfiguration busConfiguration)
+        {
+            var conventions = busConfiguration.Conventions();
+            conventions.DefiningEventsAs(t => t.Namespace != null && t.Namespace.Contains("Events"));
+            conventions.DefiningCommandsAs(t => t.Namespace != null && t.Namespace.Contains("Commands"));
+
+            conventions.DefiningTimeToBeReceivedAs(
+                t => t.Name.EndsWith("Expires") ? TimeSpan.FromSeconds(30) : TimeSpan.MaxValue);
+        }
+        
         private static void StartOwinWebHost()
         {
             const string HttpLocalhost = "http://localhost:8094";
-            WebApp.Start(HttpLocalhost);
+            var webHost = WebApp.Start(HttpLocalhost);
             Console.WriteLine("Successfully started the SignalR publisher on: {0}", HttpLocalhost);
         }
 

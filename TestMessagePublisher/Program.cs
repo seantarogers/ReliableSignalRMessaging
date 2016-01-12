@@ -69,7 +69,7 @@
             var attachmentReceivedEvent = new AgreementPlacedEvent
             {
                 AgreementId = 1,
-                AgreementDocumentUrl = "http://static1.squarespace.com/static/536a4606e4b065f2a294b1f1/t/5659aa07e4b0b807739aea9c/1448716807468/riddles+dessert+Dec2015+single.pdf",
+                AgreementDocumentUrl = "http://www.coalshed-restaurant.co.uk/img/stand_alone_files/file/original/coal-shed-menu-2015-16-web-11.pdf",
                 CorrelationId = Guid.NewGuid(),
                 BrokerId = brokerId
             };

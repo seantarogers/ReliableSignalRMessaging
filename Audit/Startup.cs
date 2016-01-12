@@ -28,7 +28,7 @@ namespace Audit
                 routeTemplate: "api/{controller}/{id}",
                 defaults: new { id = RouteParameter.Optional });
 
-            httpConfiguration.DependencyResolver = new AutofacWebApiDependencyResolver(ServiceHost.Container);
+            httpConfiguration.DependencyResolver = new AutofacWebApiDependencyResolver(EndpointConfig.Container);
 
             app.UseAutofacWebApi(httpConfiguration);
             app.UseWebApi(httpConfiguration);
