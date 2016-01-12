@@ -12,6 +12,7 @@
     using Messages.Commands;
 
     using Microsoft.AspNet.SignalR;
+    using Microsoft.AspNet.SignalR.Infrastructure;
 
     using NServiceBus;
 
@@ -36,9 +37,10 @@
                 throw new ApplicationException(
                     string.Format("Broker: {0} is not connected to Hub. Try again later", command.BrokerId));
             }
-
+            
             var hubContext = GlobalHost.ConnectionManager.GetHubContext<BackOfficeHub, IBackOfficeHubClient>();
-            hubContext.Clients.User(command.BrokerId.ToString()).InsertDocument(command);
+            hubContext.Clients.User(command.BrokerId.ToString())
+                .InsertDocument(command);
 
             ThrottlePublishOfNextMessageIfTokenIsAboutToExpire(command);
         }

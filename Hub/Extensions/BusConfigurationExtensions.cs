@@ -1,23 +1,20 @@
-
-namespace Hub
+﻿namespace Hub.Extensions
 {
     using System;
+    using System.Configuration;
 
     using Autofac;
 
-    using Extensions;
-
-    using Microsoft.Owin.Hosting;
-
     using NServiceBus;
-    
-    public class EndpointConfig : IConfigureThisEndpoint
-    {
-        public static IContainer Container { get; private set; }
+    using NServiceBus.Persistence;
+    using Configuration = NHibernate.Cfg.Configuration;
 
-        public void Customize(BusConfiguration busConfiguration)
+    public static class BusConfigurationExtensions
+    {
+        public static BusConfiguration Configure(
+            this BusConfiguration busConfiguration, 
+            IContainer container)
         {
-            Container = CreateContainer();
             busConfiguration.EndpointName("Hub");
             busConfiguration.UseSerialization<JsonSerializer>();
 
@@ -25,25 +22,8 @@ namespace Hub
             ApplyCustomConventions(busConfiguration);
             ConfigureAssembliesToScan(busConfiguration);
 
-            busConfiguration.UseContainer<AutofacBuilder>(c => c.ExistingLifetimeScope(Container));
-
-            StartOwinWebHost();
-        }
-
-        private static void StartOwinWebHost()
-        {
-            var httpLocalhost = "http://localhost:8093";
-            var webHost = WebApp.Start(httpLocalhost);
-            Console.WriteLine("Successfully started the SignalR publisher on: {0}", httpLocalhost);
-        }
-
-
-        private static IContainer CreateContainer()
-        {
-            var containerBuilder = new ContainerBuilder();
-            containerBuilder.RegisterComponents();
-            var container = containerBuilder.Build();
-            return container;
+            busConfiguration.UseContainer<AutofacBuilder>(c => c.ExistingLifetimeScope(container));
+            return busConfiguration;
         }
 
         private static void ConfigureAssembliesToScan(BusConfiguration busConfiguration)

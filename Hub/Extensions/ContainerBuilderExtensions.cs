@@ -2,8 +2,9 @@
 {
     using Autofac;
 
+    using Hub.Managers.PFIntRemotePublisher.Application.Event.Managers;
+
     using Hubs;
-    using Managers.PFIntRemotePublisher.Application.Event.Managers;
 
     using Managers;
 

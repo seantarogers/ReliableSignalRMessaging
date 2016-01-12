@@ -1,14 +1,19 @@
 ﻿namespace HubSubscriber
 {
     using System;
+    using System.IO;
 
     using Autofac;
 
     using Extensions;
 
+    using log4net.Config;
+
     using Managers;
 
     using NServiceBus;
+    using NServiceBus.Log4Net;
+    using NServiceBus.Logging;
 
     using Topshelf;
 
@@ -24,9 +29,11 @@
         {
             Console.WriteLine("starting hub subscriber");
             Container = CreateContainer();
+            SetUpLog4Net();
+
             var busConfiguration = new BusConfiguration();
             busConfiguration.Configure(Container);
-
+            
             StartBus(busConfiguration);
             StartConnectionToHub();
 
@@ -62,6 +69,14 @@
             var container = containerBuilder.Build();
             return container;
         }
+
+
+        private static void SetUpLog4Net()
+        {
+            XmlConfigurator.ConfigureAndWatch(new FileInfo(AppDomain.CurrentDomain.BaseDirectory + "log4net.config"));
+            LogManager.Use<Log4NetFactory>();
+        }
+
     }
 }
 

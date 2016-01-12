@@ -2,6 +2,8 @@
 {
     using Autofac;
 
+    using Logger;
+
     using Managers;
     using Services;
 
@@ -22,6 +24,9 @@
 
             containerBuilder.RegisterType<BackOfficeService>()
                 .As<IBackOfficeService>();
+
+            containerBuilder.RegisterType<MessagingLogger>()
+                .As<IMessagingLogger>();
 
             return containerBuilder;
         }

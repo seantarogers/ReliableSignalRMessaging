@@ -18,38 +18,37 @@ namespace Hub
     {
         public void Configuration(IAppBuilder app)
         {
-            app.UseAutofacMiddleware(EndpointConfig.Container);
+            app.UseAutofacMiddleware(ServiceHost.Container);
             SetUpMiddleware(app);
             SetUpSignalR(app);
         }
 
         private static void SetUpSignalR(IAppBuilder app)
         {
-            var autofacResolver = new AutofacDependencyResolver(EndpointConfig.Container);
-            var hubConfiguration = new HubConfiguration { EnableDetailedErrors = true, Resolver = autofacResolver };
-
+            var autofacDependencyResolver = new AutofacDependencyResolver(ServiceHost.Container);
+            var hubConfiguration = new HubConfiguration
+                                       {
+                                           EnableDetailedErrors = true,
+                                           Resolver = autofacDependencyResolver
+                                       };
             app.Map(
                 "/signalr",
                 map =>
                     {
                         map.RunSignalR(hubConfiguration);
                     });
+
+            GlobalHost.DependencyResolver = autofacDependencyResolver;
         }
 
         private static void SetUpMiddleware(IAppBuilder app)
         {
             var jwtOptions = new JwtBearerAuthenticationOptions
             {
-                AllowedAudiences =
-                                        new List<string>
-                                            {
-                                                 IdentityConstants.AllowedAudienceCode
-                                            },
-                IssuerSecurityTokenProviders =
-                                        new[] {
-                                                 new SymmetricKeyIssuerSecurityTokenProvider
-                                                     (IdentityConstants.Issuer,
-                                                     IdentityConstants.TokenSigningKey)
+                AllowedAudiences = new List<string>
+                                            {IdentityConstants.AllowedAudienceCode },
+                IssuerSecurityTokenProviders = new[] {new SymmetricKeyIssuerSecurityTokenProvider
+                                                     (IdentityConstants.Issuer, IdentityConstants.TokenSigningKey)
                                             },
                 Provider = new BearerTokenInterceptor()
             };

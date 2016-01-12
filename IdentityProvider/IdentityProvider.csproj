@@ -111,9 +111,7 @@
     <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Constants\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <ProjectReference Include="..\IdentityInfrastructure\IdentityInfrastructure.csproj">
       <Project>{0e853516-6aa4-436b-a866-d9aa5be9ef38}</Project>

@@ -42,7 +42,7 @@ namespace IdentityProvider
             {
                 AllowInsecureHttp = true,
                 TokenEndpointPath = new PathString("/token"),
-                AccessTokenExpireTimeSpan = TimeSpan.FromMinutes(6),
+                AccessTokenExpireTimeSpan = TimeSpan.FromMinutes(50),
                 Provider = new AuthorizationProvider(),
                 AccessTokenFormat = new JwtFormattingService(
                     IdentityConstants.Issuer,

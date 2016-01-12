@@ -2,16 +2,21 @@
 namespace Audit
 {
     using System;
+    using System.IO;
 
     using Extensions;
 
     using Autofac;
 
+    using log4net.Config;
+
     using Microsoft.Owin.Hosting;
 
     using NServiceBus;
     using NServiceBus.Features;
-    
+    using NServiceBus.Log4Net;
+    using NServiceBus.Logging;
+
     public class EndpointConfig : IConfigureThisEndpoint, AsA_Server
     {   
         public static IContainer Container { get; private set; }
@@ -19,6 +24,8 @@ namespace Audit
         public void Customize(BusConfiguration busConfiguration)
         {
             Container = CreateContainer();
+
+            SetUpLog4Net();
             busConfiguration.EndpointName("Audit");
             busConfiguration.UseSerialization<JsonSerializer>();
 
@@ -64,6 +71,13 @@ namespace Audit
             containerBuilder.RegisterComponents();
             var container = containerBuilder.Build();
             return container;
+        }
+
+
+        private static void SetUpLog4Net()
+        {
+            XmlConfigurator.ConfigureAndWatch(new FileInfo(AppDomain.CurrentDomain.BaseDirectory + "log4net.config"));
+            LogManager.Use<Log4NetFactory>();
         }
     }
 }

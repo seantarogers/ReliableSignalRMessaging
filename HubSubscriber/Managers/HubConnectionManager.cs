@@ -7,6 +7,8 @@
 
     using Contracts;
 
+    using Logger;
+
     using Messages.Commands;
 
     using Services;
@@ -21,12 +23,14 @@
         private const string HubName = "backOfficeHub";
 
         private IHubProxy<IBackOfficeHub, IBackOfficeHubClient> hubProxy;
-
+        
         private HubConnection hubConnection;
 
         private readonly IAccessTokenService accessTokenService;
 
         private readonly IBus bus;
+
+        private readonly IMessagingLogger messagingLogger;
 
         private DateTime accessTokenExpiryDate;
 
@@ -35,10 +39,11 @@
         private readonly object refreshTokenLock = new object();
 
 
-        public HubConnectionManager(IAccessTokenService accessTokenService, IBus bus)
+        public HubConnectionManager(IAccessTokenService accessTokenService, IBus bus, IMessagingLogger messagingLogger)
         {
             this.accessTokenService = accessTokenService;
             this.bus = bus;
+            this.messagingLogger = messagingLogger;
         }
 
         public bool Start()
@@ -51,11 +56,11 @@
                 }
                 catch (AggregateException e)
                 {
-                    Console.WriteLine(e);
+                    messagingLogger.ErrorFormat(this, e.ToString());
                 }
                 catch (Exception e)
                 {
-                    Console.WriteLine(e);
+                    messagingLogger.ErrorFormat(this, e.ToString());
                 }
 
                 return false;
@@ -103,17 +108,23 @@
             var queryString = new Dictionary<string, string> { { "bearer_token", HttpUtility.UrlEncode(accessToken) } };
 
             var hubUrl = "http://localhost:8093";
-            hubConnection = new HubConnection(hubUrl, queryString);
-            RegisterHubConnectionEvents();
 
+            hubConnection = new HubConnection(hubUrl, queryString)
+                                {
+                                    TraceLevel = TraceLevels.All,
+                                    TraceWriter = new Log4NetTextWriter(new MessagingLogger()),
+                                    DeadlockErrorTimeout = TimeSpan.FromMinutes(5)
+                                };
+
+            RegisterHubConnectionEvents();
+            
             hubProxy = hubConnection.CreateHubProxy<IBackOfficeHub, IBackOfficeHubClient>(HubName);
 
             //subscribe before connection is started so that you can make your replay all messages call 
             // inside the connection event
             SetUpHubConnectionSubscriptions();
 
-            hubConnection.Start(new ServerSentEventsTransport())
-                .Wait();
+            hubConnection.Start(new ServerSentEventsTransport()).Wait();
 
             return true;
         }

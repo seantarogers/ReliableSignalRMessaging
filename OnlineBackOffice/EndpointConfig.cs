@@ -2,19 +2,26 @@
 namespace OnlineBackOffice
 {
     using System;
+    using System.IO;
 
     using Autofac;
 
     using NServiceBus;
 
     using Extensions;
-    
+
+    using log4net.Config;
+
+    using NServiceBus.Log4Net;
+    using NServiceBus.Logging;
+
     public class EndpointConfig : IConfigureThisEndpoint
     {
         public void Customize(BusConfiguration busConfiguration)
         {
             var container = CreateContainer();
 
+            SetUpLog4Net();
             busConfiguration.EndpointName("OnlineBackOffice");
             busConfiguration.UseSerialization<JsonSerializer>();
 
@@ -24,6 +31,7 @@ namespace OnlineBackOffice
             ApplyCustomConventions(busConfiguration);
             ConfigureAssembliesToScan(busConfiguration);
 
+            
             busConfiguration.UseContainer<AutofacBuilder>(c => c.ExistingLifetimeScope(container));            
         }
 
@@ -52,5 +60,13 @@ namespace OnlineBackOffice
             var container = containerBuilder.Build();
             return container;
         }
+
+
+        private static void SetUpLog4Net()
+        {
+            XmlConfigurator.ConfigureAndWatch(new FileInfo(AppDomain.CurrentDomain.BaseDirectory + "log4net.config"));
+            LogManager.Use<Log4NetFactory>();
+        }
+
     }
 }

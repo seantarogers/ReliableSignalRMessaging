@@ -69,7 +69,7 @@
             var attachmentReceivedEvent = new AgreementPlacedEvent
             {
                 AgreementId = 1,
-                AgreementDocumentUrl = "http://www.coalshed-restaurant.co.uk/img/stand_alone_files/file/original/coal-shed-menu-2015-16-web-11.pdf",
+                AgreementDocumentUrl = "https://upload.wikimedia.org/wikipedia/en/f/f4/The_Best_Best_of_Fela_Kuti.jpg",
                 CorrelationId = Guid.NewGuid(),
                 BrokerId = brokerId
             };

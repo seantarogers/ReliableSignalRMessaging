@@ -73,6 +73,10 @@
       <HintPath>..\packages\Iesi.Collections.4.0.1.4000\lib\net40\Iesi.Collections.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="log4net, Version=1.2.13.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\log4net.2.0.3\lib\net40-full\log4net.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.AspNet.SignalR.Core, Version=2.2.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.SignalR.Core.2.2.0\lib\net45\Microsoft.AspNet.SignalR.Core.dll</HintPath>
       <Private>True</Private>
@@ -117,8 +121,8 @@
       <HintPath>..\packages\NServiceBus.5.2.9\lib\net45\NServiceBus.Core.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="NServiceBus.Host, Version=6.0.0.0, Culture=neutral, PublicKeyToken=9fc386479f8a226c, processorArchitecture=MSIL">
-      <HintPath>..\packages\NServiceBus.Host.6.0.0\lib\net45\NServiceBus.Host.exe</HintPath>
+    <Reference Include="NServiceBus.Log4Net, Version=1.0.0.0, Culture=neutral, PublicKeyToken=9fc386479f8a226c, processorArchitecture=MSIL">
+      <HintPath>..\packages\NServiceBus.Log4Net.1.0.0\lib\net45\NServiceBus.Log4Net.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="NServiceBus.NHibernate, Version=6.0.0.0, Culture=neutral, PublicKeyToken=9fc386479f8a226c, processorArchitecture=MSIL">
@@ -170,22 +174,28 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controllers\AcknowledgementController.cs" />
-    <Compile Include="EndpointConfig.cs" />
+    <Compile Include="Extensions\BusConfigurationExtensions.cs" />
     <Compile Include="Extensions\ContainerBuilderExtensions.cs" />
     <Compile Include="Handlers\InsertDocumentIntoRemoteBackOfficeCommandHandler.cs" />
     <Compile Include="Hubs\BackOfficeHub.cs" />
     <Compile Include="BrokerConnection.cs" />
+    <Compile Include="IServiceHost.cs" />
     <Compile Include="Managers\BrokerConnectionManager.cs" />
     <Compile Include="Managers\IBrokerConnectionManager.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Providers\ConfigurationProvider.cs" />
     <Compile Include="Providers\TokenProvider.cs" />
+    <Compile Include="ServiceHost.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config">
       <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Log4net.config">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="packages.config" />
   </ItemGroup>
@@ -201,6 +211,10 @@
     <ProjectReference Include="..\IdentityInfrastructure\IdentityInfrastructure.csproj">
       <Project>{0e853516-6aa4-436b-a866-d9aa5be9ef38}</Project>
       <Name>IdentityInfrastructure</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Logger\Logger.csproj">
+      <Project>{e4601311-1bdd-400f-ab4f-b6eb92561155}</Project>
+      <Name>Logger</Name>
     </ProjectReference>
     <ProjectReference Include="..\Messages\Messages.csproj">
       <Project>{f0b6afa4-4848-4b13-b4cc-a0532866cdea}</Project>

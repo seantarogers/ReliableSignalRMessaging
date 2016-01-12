@@ -62,7 +62,7 @@
             claimsIdentity.AddClaim(new Claim(IdentityConstants.IdentityProviderClaimType, userName));
             claimsIdentity.AddClaim(new Claim(ClaimTypes.Name, userName));
             claimsIdentity.AddClaim(new Claim(ClaimTypes.Name, userName));
-            claimsIdentity.AddClaim(new Claim(IdentityConstants.TokenExpiresOnClaimType, DateTime.UtcNow.AddMinutes(6).Ticks.ToString()));
+            claimsIdentity.AddClaim(new Claim(IdentityConstants.TokenExpiresOnClaimType, DateTime.UtcNow.AddMinutes(20).Ticks.ToString()));
 
             claimsIdentity.AddClaim(new Claim(ClaimTypes.AuthenticationMethod, IdentityConstants.AuthenticationMethod));
         }

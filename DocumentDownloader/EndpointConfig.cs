@@ -2,19 +2,25 @@
 namespace DocumentDownloader
 {
     using System;
+    using System.IO;
 
     using Autofac;
 
     using Extensions;
 
+    using log4net.Config;
+
     using NServiceBus;
-    
+    using NServiceBus.Log4Net;
+    using NServiceBus.Logging;
+
     public class EndpointConfig : IConfigureThisEndpoint
     {
         public void Customize(BusConfiguration busConfiguration)
         {
             var container = CreateContainer();
 
+            SetUpLog4Net();
             busConfiguration.EndpointName("DocumentDownloader");
             busConfiguration.UseSerialization<JsonSerializer>();
 
@@ -23,6 +29,7 @@ namespace DocumentDownloader
             busConfiguration.EnableInstallers();
             ApplyCustomConventions(busConfiguration);
             ConfigureAssembliesToScan(busConfiguration);
+            
 
             busConfiguration.UseContainer<AutofacBuilder>(c => c.ExistingLifetimeScope(container));
         }
@@ -51,6 +58,12 @@ namespace DocumentDownloader
             containerBuilder.RegisterComponents();
             var container = containerBuilder.Build();
             return container;
+        }
+        
+        private static void SetUpLog4Net()
+        {
+            XmlConfigurator.ConfigureAndWatch(new FileInfo(AppDomain.CurrentDomain.BaseDirectory + "log4net.config"));
+            LogManager.Use<Log4NetFactory>();
         }
     }
 }

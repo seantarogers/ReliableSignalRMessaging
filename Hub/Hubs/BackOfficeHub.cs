@@ -85,6 +85,7 @@
         {
             try
             {
+
                 var connectionEvent = CreateConnectionEvent("Connected");
                 bus.Publish(connectionEvent);
                 AddBrokerToConnections();
