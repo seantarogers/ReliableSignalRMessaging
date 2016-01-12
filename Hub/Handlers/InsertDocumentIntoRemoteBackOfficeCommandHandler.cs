@@ -12,7 +12,6 @@
     using Messages.Commands;
 
     using Microsoft.AspNet.SignalR;
-    using Microsoft.AspNet.SignalR.Infrastructure;
 
     using NServiceBus;
 
@@ -24,14 +23,10 @@
             IBrokerConnectionManager brokerConnectionManager)
         {
             this.brokerConnectionManager = brokerConnectionManager;
-            
         }
 
         public void Handle(InsertDocumentIntoRemoteBackOfficeCommand command)
         {
-            //todo - currently if broker is not connected, the message will not be stored in audit
-            //and will not get auto replayed.
-            //should we save syncronously here - but i do not want duplicates.
             if (!brokerConnectionManager.IsBrokerConnected(command.BrokerId))
             {
                 throw new ApplicationException(
