@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace Hub.UnitTests
 {
+    
     public class Class1
     {
     }
