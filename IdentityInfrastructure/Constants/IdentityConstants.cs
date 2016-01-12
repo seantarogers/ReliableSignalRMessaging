@@ -28,6 +28,6 @@
         public static string AllowedAudienceCode = "aac";
 
         public const string TokenSigningKey =
-                "+7WI1I+ZFLDkgjEXe+JU3UHesdQa9ngAoc0BYFSt6jEAjheZtgvpy3Bh6BszfEIY4H3KjzMmZMTwAMEp1Rd9xQ==";
+                "+1234I+ZFLDkgjEXe+JU3UHesdQa9ngAoc0BYFSt6jEAjheZtgvpy3Bh6BszfEIY4H3KjzMmZMTwAMEp1R1234==";
     }
 }
