@@ -13,7 +13,7 @@
     using Strategies;
 
     public class AgreementSaga : Saga<AgreementSagaData>,
-                             IAmStartedByMessages<AgreementPlacedEvent>,
+                             IAmStartedByMessages<SubmitAgreementCommand>,
                              IHandleMessages<DocumentDownloadedEvent>,
                              IHandleMessages<CompleteAgreementSagaCommand>,
                              IHandleMessages<OnlineDocumentSuccessfullyInsertedEvent>
@@ -30,16 +30,16 @@
             this.backOfficeStrategies = backOfficeStrategies;
         }
 
-        public void Handle(AgreementPlacedEvent agreementPlacedEvent)
+        public void Handle(SubmitAgreementCommand submitAgreementCommand)
         {
-            SaveSagaData(agreementPlacedEvent);
+            SaveSagaData(submitAgreementCommand);
 
             bus.Send(
                 new DownloadDocumentCommand
                     {
-                        BrokerId = agreementPlacedEvent.BrokerId,
-                        AttachmentUrl = agreementPlacedEvent.AgreementDocumentUrl,
-                        CorrelationId = agreementPlacedEvent.CorrelationId
+                        BrokerId = submitAgreementCommand.BrokerId,
+                        AttachmentUrl = submitAgreementCommand.AgreementDocumentUrl,
+                        CorrelationId = submitAgreementCommand.CorrelationId
                     });
         }
 
@@ -68,7 +68,7 @@
 
         protected override void ConfigureHowToFindSaga(SagaPropertyMapper<AgreementSagaData> mapper)
         {
-            mapper.ConfigureMapping<AgreementPlacedEvent>(s => s.CorrelationId)
+            mapper.ConfigureMapping<SubmitAgreementCommand>(s => s.CorrelationId)
                 .ToSaga(m => m.CorrelationId);
             mapper.ConfigureMapping<DocumentDownloadedEvent>(s => s.CorrelationId)
                 .ToSaga(m => m.CorrelationId);
@@ -78,11 +78,11 @@
                 .ToSaga(m => m.CorrelationId);
         }
 
-        private void SaveSagaData(AgreementPlacedEvent agreementPlacedEvent)
+        private void SaveSagaData(SubmitAgreementCommand submitAgreementCommand)
         {
-            Data.BrokerId = agreementPlacedEvent.BrokerId;
-            Data.CorrelationId = agreementPlacedEvent.CorrelationId;
-            Data.AgreementId = agreementPlacedEvent.AgreementId;
+            Data.BrokerId = submitAgreementCommand.BrokerId;
+            Data.CorrelationId = submitAgreementCommand.CorrelationId;
+            Data.AgreementId = submitAgreementCommand.AgreementId;
             Data.CreateDate = DateTime.Now;
         }
     }

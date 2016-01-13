@@ -1,0 +1,20 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+
+<div class="jumbotron">
+    <h1>Back Office Integration V2</h1>
+    <p class="lead">Submit a finance agreement to your back office system.</p>
+
+    @using (Html.BeginForm("SubmitOnlineAgreement", "home", FormMethod.Post))
+    {
+        <p> <input class="btn btn-primary btn-lg" type="submit" value="Online back office"/>
+        </p>        
+    }
+
+    @using (Html.BeginForm("SubmitRemoteAgreement", "home", FormMethod.Post))
+    {
+        <p>
+            <input class="btn btn-primary btn-lg" type="submit" value="Remote back office"/></p>            
+    }
+</div>

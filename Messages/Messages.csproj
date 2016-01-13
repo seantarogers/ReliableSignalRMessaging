@@ -43,6 +43,7 @@
     <Compile Include="Commands\InsertDocumentIntoBackOfficeCommand.cs" />
     <Compile Include="Commands\InsertDocumentIntoRemoteBackOfficeCommand.cs" />
     <Compile Include="Commands\DownloadDocumentCommand.cs" />
+    <Compile Include="Commands\SubmitAgreementCommand.cs" />
     <Compile Include="CompletionAuditMessage.cs" />
     <Compile Include="Commands\CompleteAgreementSagaCommand.cs" />
     <Compile Include="Events\DocumentDownloadedEvent.cs" />
