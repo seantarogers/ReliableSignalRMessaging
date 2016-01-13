@@ -1,0 +1,12 @@
+A Signalr and NserviceBus messaging framework that provides secure and reliable push based messaging.
+
+Reliability comes from 
+
+1. Robust hub connection management
+2. Hubs backed by msmq queues
+3. Auto replay of stuck Hub Messages
+4. Throttling of messages when connections are restarted to minimise the need for auto replay
+enabled by server side knowledge of remote clients token expiry
+5. Client side throttling and msmq persistence
+6. message acknowledgments sent back via web api to a separate (non signalr) host.
+7. Esent database integration to ensure idempotency.
