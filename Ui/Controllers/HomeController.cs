@@ -2,6 +2,8 @@
 
 namespace Ui.Controllers
 {
+    using System;
+
     using Messages.Commands;
 
     using NServiceBus;
@@ -40,6 +42,7 @@ namespace Ui.Controllers
             sendOnlyBus.Send(
                 new SubmitAgreementCommand
                     {
+                    CorrelationId = Guid.NewGuid(),
                         BrokerId = brokerId,
                         AgreementDocumentUrl =
                             "https://upload.wikimedia.org/wikipedia/en/f/f4/The_Best_Best_of_Fela_Kuti.jpg"
