@@ -27,7 +27,6 @@
 
         public void Handle(InsertDocumentIntoRemoteBackOfficeCommand command)
         {
-
             if (!brokerConnectionManager.IsBrokerConnected(command.BrokerId))
             {
                 throw new ApplicationException(

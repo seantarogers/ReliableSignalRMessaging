@@ -3,7 +3,6 @@
     using System;
     using System.IdentityModel.Tokens;
 
-    using IdentityInfrastructure;
     using IdentityInfrastructure.Constants;
 
     public class HmacSigningCredentialsService : SigningCredentials
