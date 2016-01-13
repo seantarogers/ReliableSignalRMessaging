@@ -54,7 +54,7 @@
                 var connectionEvent = CreateConnectionEvent("Disconnected");
                 bus.Publish(connectionEvent);
 
-                brokerConnectionManager.RemoveBroker(Context.ConnectionId);
+                brokerConnectionManager.RemoveConnection(Context.ConnectionId);
             }
             catch (Exception exception)
             {
@@ -160,7 +160,7 @@
             var brokerId = int.Parse(claimsPrincipal.Identity.Name);
             var tokenExpiresOn = GetTokenExpiresOnDateFromClaims(claimsPrincipal);
             var connectionId = Context.ConnectionId;
-            brokerConnectionManager.AddBroker(connectionId, brokerId, tokenExpiresOn);
+            brokerConnectionManager.AddConnection(connectionId, brokerId, tokenExpiresOn);
         }
 
         private static DateTime GetTokenExpiresOnDateFromClaims(ClaimsPrincipal claimsPrincipal)

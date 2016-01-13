@@ -15,6 +15,19 @@
                 BrokerConnections = new List<BrokerConnection>();
             }
 
+            public int NumberOfConnectedBrokers
+            {
+                get
+                {
+                    lock (BrokerConnections)
+                    {
+                        return BrokerConnections.Select(b => b.BrokerId)
+                            .Distinct()
+                            .Count();
+                    }
+                }
+            }
+
             public bool IsBrokerConnected(int brokerId)
             {
                 lock (BrokerConnections)
@@ -23,7 +36,7 @@
                 }
             }
 
-            public void AddBroker(string connectionId, int brokerId, DateTime tokenExpiresOn)
+            public void AddConnection(string connectionId, int brokerId, DateTime tokenExpiresOn)
             {
                 lock (BrokerConnections)
                 {
@@ -53,7 +66,7 @@
                 }
             }
 
-            public void RemoveBroker(string connectionId)
+            public void RemoveConnection(string connectionId)
             {
                 lock (BrokerConnections)
                 {
@@ -64,10 +77,23 @@
                 }
             }
 
+            public void ClearBrokerConnections()
+            {
+                lock (BrokerConnections)
+                {
+                    BrokerConnections.Clear();
+                }
+            }
+
             public bool ActiveBrokerTokenIsDueToExpire(int brokerId)
             {
                 lock (BrokerConnections)
                 {
+                    if (BrokerConnections.All(b => b.BrokerId != brokerId))
+                    {
+                        throw new ApplicationException("Cannot find Broker in list of connections");
+                    }
+
                     var brokerConnection = BrokerConnections.First(b => b.BrokerId == brokerId && !b.Expired);
                     return brokerConnection.TokenExpiresOn <= DateTime.UtcNow.AddMinutes(5);
                 }

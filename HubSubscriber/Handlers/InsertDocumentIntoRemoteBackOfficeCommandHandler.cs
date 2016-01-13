@@ -18,9 +18,7 @@
         private readonly IMessageStore messageStore;
 
         private readonly IBackOfficeService backOfficeService;
-
-        private readonly IHubConnectionManager hubConnectionManager;
-
+        
         public InsertDocumentIntoRemoteBackOfficeCommandHandler(
             IBus bus, 
             IMessageStore messageStore, 
@@ -46,7 +44,6 @@
             using (var transactionScope = new TransactionScope())
             {
                 messageStore.AddMessageId(insertCommand.Id);
-
                 var result = backOfficeService.InsertDocument();
 
                 if (result)
