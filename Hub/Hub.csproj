@@ -121,6 +121,10 @@
       <HintPath>..\packages\NServiceBus.5.2.9\lib\net45\NServiceBus.Core.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="NServiceBus.Host, Version=6.0.0.0, Culture=neutral, PublicKeyToken=9fc386479f8a226c, processorArchitecture=MSIL">
+      <HintPath>..\packages\NServiceBus.Host.6.0.0\lib\net45\NServiceBus.Host.exe</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="NServiceBus.Log4Net, Version=1.0.0.0, Culture=neutral, PublicKeyToken=9fc386479f8a226c, processorArchitecture=MSIL">
       <HintPath>..\packages\NServiceBus.Log4Net.1.0.0\lib\net45\NServiceBus.Log4Net.dll</HintPath>
       <Private>True</Private>
@@ -174,19 +178,17 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controllers\AcknowledgementController.cs" />
-    <Compile Include="Extensions\BusConfigurationExtensions.cs" />
+    <Compile Include="EndpointConfig.cs" />
     <Compile Include="Extensions\ContainerBuilderExtensions.cs" />
     <Compile Include="Handlers\InsertDocumentIntoRemoteBackOfficeCommandHandler.cs" />
     <Compile Include="Hubs\BackOfficeHub.cs" />
     <Compile Include="BrokerConnection.cs" />
-    <Compile Include="IServiceHost.cs" />
     <Compile Include="Managers\BrokerConnectionManager.cs" />
     <Compile Include="Managers\IBrokerConnectionManager.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Providers\ConfigurationProvider.cs" />
     <Compile Include="Providers\TokenProvider.cs" />
-    <Compile Include="ServiceHost.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
