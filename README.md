@@ -25,7 +25,7 @@ A reliable SignalR server messaging framework prototype. This solution attempts 
 * Signalr Hub Log4Net tracing.
 * Full auditing of all messages sent and received
 
-## To Run solution
+## To run solution
 
 1. Create a SQL Server 2014 database called 'NServiceBus' on a SQL instance called '.\sqlserver2014'
 2. Add an NserviceBus license to C:\NServiceBus\License.xml
