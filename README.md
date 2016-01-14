@@ -9,6 +9,7 @@ A reliable SignalR server messaging framework prototype. This solution attempts 
 Reliable messaging features
 ------
 
+ * Robust management of client Hub connection including reconnection retry, managed disposal and guaranteed single connection at any point in time.
  * To ensure Hub to client notifications can be retried, the notifications sent from NServiceBus command handler via HubContext (rather than from within a Signalr Hub).
  * Hub client immediately moves received messages from the ring buffer to a persistent queue before processing. This avoids message loss if a client reconnects whilst messages are sitting in the buffer waiting to be processed.
  * Hub notification throttling on Hub server makes certain no notifications are pushed to a client whilst that client is reconnecting due to an access token refresh.
@@ -18,6 +19,13 @@ Reliable messaging features
  * Hub Client message acknowledgment sending is managed on a seperate thread in an NServicebus command handler.  This allows for multiple retries of insertion of data into the back office.
  * Future feature - Client side message store using Esent to ensure message Idempotency.
 
+Other features
+------
+* Authorized SignalR connections using Oauth2 JWT.
+* Hosting of SignalR on Katana.
+* Hosting of OAuth2 Token provider on Katana.
+* Workflow managed via NServiceBus Saga.
+* Signalr Hub Log4Net tracing.
 
 To Run
 ------
