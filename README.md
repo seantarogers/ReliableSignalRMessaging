@@ -18,7 +18,7 @@ A reliable SignalR server messaging framework prototype. This solution attempts 
 
 ## Other features
 
-* Secure SignalR connections using Oauth2 with JWT.
+* Secure SignalR connections using OAuth2 with JWT.
 * Hosting of SignalR on Katana.
 * Hosting of OAuth2 Token provider on Katana.
 * Workflow managed via NServiceBus Saga.
