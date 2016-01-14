@@ -60,7 +60,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Services\BearerTokenInterceptor.cs" />
+    <Compile Include="Services\BearerTokenCookieInterceptor.cs" />
+    <Compile Include="Services\BearerTokenQueryStringInterceptor.cs" />
     <Compile Include="Constants\IdentityConstants.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

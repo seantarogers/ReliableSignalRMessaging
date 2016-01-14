@@ -49,7 +49,7 @@ namespace Audit
                                                      (IdentityConstants.Issuer,
                                                      IdentityConstants.TokenSigningKey)
                                             },
-                Provider = new BearerTokenInterceptor()
+                Provider = new BearerTokenQueryStringInterceptor()
             };
 
             app.UseJwtBearerAuthentication(jwtOptions);

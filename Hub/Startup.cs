@@ -50,7 +50,7 @@ namespace Hub
                 IssuerSecurityTokenProviders = new[] {new SymmetricKeyIssuerSecurityTokenProvider
                                                      (IdentityConstants.Issuer, IdentityConstants.TokenSigningKey)
                                             },
-                Provider = new BearerTokenInterceptor()
+                Provider = new BearerTokenQueryStringInterceptor()
             };
 
             app.UseJwtBearerAuthentication(jwtOptions);

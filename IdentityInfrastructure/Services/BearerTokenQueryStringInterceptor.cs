@@ -5,7 +5,7 @@
 
     using Microsoft.Owin.Security.OAuth;
 
-    public class BearerTokenInterceptor : OAuthBearerAuthenticationProvider
+    public class BearerTokenQueryStringInterceptor : OAuthBearerAuthenticationProvider
     {
         public override Task RequestToken(OAuthRequestTokenContext context)
         {
