@@ -44,13 +44,7 @@
 
             return Ok();
         }
-
-        [Route("")]
-        public IHttpActionResult Get()
-        {
-            return Ok();
-        }
-
+        
         private void AcknowledgeCorrelatedMessages(Message remoteDocumentSuccessfullyInsertedEvent)
         {
             using (var transaction = auditContext.BeginTransaction())
