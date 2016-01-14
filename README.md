@@ -1,13 +1,10 @@
 # ReliableSignalrMessaging
-======
 
-Overview
-------
+## Overview
 
 A reliable SignalR server messaging framework prototype. This solution attempts to address the number of challenges when using SignalR as a server messaging framework.  It adds the following reliability features:
 
-Reliable messaging features
-------
+## Reliable messaging features
 
  * Robust management of client Hub connection including reconnection retry, managed disposal and guaranteed single connection at any point in time (which avoids duplicate message delivery).
  * To ensure Hub to client notifications can be retried, the notifications are sent from NServiceBus command handler via HubContext (rather than from within a Signalr Hub).
@@ -19,8 +16,8 @@ Reliable messaging features
  * Hub Client message acknowledgment sending is managed on a seperate thread in an NServicebus command handler.  This allows for multiple retries of insertion of data into the back office.
  * Future feature - Client side message store using Esent to ensure message Idempotency.
 
-Other features
-------
+## Other features
+
 * Authorized SignalR connections using Oauth2 JWT.
 * Hosting of SignalR on Katana.
 * Hosting of OAuth2 Token provider on Katana.
@@ -28,8 +25,8 @@ Other features
 * Signalr Hub Log4Net tracing.
 * Full auditing of all messages sent and received
 
-To Run
-------
+## To Run solution
+
 1. Create a SQL Server 2014 database called 'NServiceBus' on a SQL instance called '.\sqlserver2014'
 2. Add an NserviceBus license to C:\NServiceBus\License.xml
 3. Run the solution and submit the relevant button on the UI.
