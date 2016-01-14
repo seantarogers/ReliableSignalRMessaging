@@ -30,5 +30,10 @@ A reliable SignalR server messaging framework prototype. This solution attempts 
 1. Create a SQL Server 2014 database called 'NServiceBus' on a SQL instance called '.\sqlserver2014'
 2. Add an NserviceBus license to C:\NServiceBus\License.xml
 3. Set the following projects to run in the solution: Audit, DocumentDownloader, Hub, HubSubscriber, IdentityProvider, OnlineBackOffice, Saga and Ui.
-3. On the UI home page select the type of scenario and submit.
+3. On the UI home page select the type of scenario and submit. 
+
+
+## For more information
+
+See the architecture diagram png at the root of the solution
 
