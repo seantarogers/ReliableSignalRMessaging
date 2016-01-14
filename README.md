@@ -35,5 +35,5 @@ A reliable SignalR server messaging framework prototype. This solution attempts 
 
 ## For more information
 
-See the architecture diagram png at the root of the solution
+![Image of Architecture](https://raw.githubusercontent.com/seantarogers/ReliableSignalRMessaging/master/ReliableSignalRMessaging.png)
 
