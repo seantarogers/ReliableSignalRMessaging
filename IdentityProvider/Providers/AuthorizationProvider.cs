@@ -26,7 +26,7 @@
                         {
                             return;
                         }
-
+                        
                         if (context.UserName != "123" && context.Password != "mypassword")
                         {
                             context.Rejected();
@@ -62,7 +62,7 @@
             claimsIdentity.AddClaim(new Claim(IdentityConstants.IdentityProviderClaimType, userName));
             claimsIdentity.AddClaim(new Claim(ClaimTypes.Name, userName));
             claimsIdentity.AddClaim(new Claim(ClaimTypes.Name, userName));
-            claimsIdentity.AddClaim(new Claim(IdentityConstants.TokenExpiresOnClaimType, DateTime.UtcNow.AddMinutes(20).Ticks.ToString()));
+            claimsIdentity.AddClaim(new Claim(IdentityConstants.TokenExpiresOnClaimType, DateTime.UtcNow.AddMinutes(IdentityConstants.TokenDurationInMinutes).Ticks.ToString()));
 
             claimsIdentity.AddClaim(new Claim(ClaimTypes.AuthenticationMethod, IdentityConstants.AuthenticationMethod));
         }

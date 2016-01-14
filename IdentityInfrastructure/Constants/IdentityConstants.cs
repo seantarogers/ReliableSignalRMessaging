@@ -29,5 +29,7 @@
 
         public const string TokenSigningKey =
             "+mvm3YdArP28yddjlTxe9YbrMB6rd8gGaTugU2Mmy+SR6OiANU6q0Sx5A3QsSmXikmYVkxEi7Ah96AlyUxU92r==";
+
+        public const int TokenDurationInMinutes = 20;
     }
 }
