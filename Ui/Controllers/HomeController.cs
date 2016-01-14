@@ -12,7 +12,7 @@ namespace Ui.Controllers
     {
         private readonly ISendOnlyBus sendOnlyBus;
 
-        public HomeController(IBus sendOnlyBus)
+        public HomeController(ISendOnlyBus sendOnlyBus)
         {
             this.sendOnlyBus = sendOnlyBus;
         }
