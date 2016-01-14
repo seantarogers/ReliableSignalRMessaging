@@ -26,6 +26,7 @@ Other features
 * Hosting of OAuth2 Token provider on Katana.
 * Workflow managed via NServiceBus Saga.
 * Signalr Hub Log4Net tracing.
+* Full auditing of all messages sent and received
 
 To Run
 ------
