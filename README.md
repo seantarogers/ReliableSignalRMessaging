@@ -33,7 +33,7 @@ A reliable SignalR server messaging framework prototype. This solution attempts 
 3. On the UI home page select the type of scenario and submit. 
 
 
-## For more information
+## Architecture
 
 ![Image of Architecture](https://raw.githubusercontent.com/seantarogers/ReliableSignalRMessaging/master/ReliableSignalRMessaging.png)
 
