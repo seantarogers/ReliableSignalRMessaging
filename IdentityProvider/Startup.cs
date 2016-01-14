@@ -8,7 +8,6 @@ namespace IdentityProvider
     using System;
     using System.Web.Http;
 
-    using IdentityInfrastructure;
     using IdentityInfrastructure.Constants;
 
     using Providers;
