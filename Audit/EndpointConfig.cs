@@ -18,7 +18,7 @@ namespace Audit
     using NServiceBus.Logging;
 
     public class EndpointConfig : IConfigureThisEndpoint, AsA_Server
-    {   
+    {
         public static IContainer Container { get; private set; }
 
         public void Customize(BusConfiguration busConfiguration)
@@ -57,7 +57,7 @@ namespace Audit
             conventions.DefiningTimeToBeReceivedAs(
                 t => t.Name.EndsWith("Expires") ? TimeSpan.FromSeconds(30) : TimeSpan.MaxValue);
         }
-        
+
         private static void StartOwinWebHost()
         {
             const string HttpLocalhost = "http://localhost:8094";
