@@ -1,7 +1,13 @@
 # ReliableSignalrMessaging
 ======
 
+Overview
+------
+
 A reliable SignalR server messaging framework prototype. This solution attempts to address the number of challenges when using SignalR as a server messaging framework.  It adds the following reliability features:
+
+Reliable messaging features
+------
 
  * To ensure Hub to client notifications can be retried, the notifications sent from NServiceBus command handler via HubContext (rather than from within a Signalr Hub).
  * Hub client immediately moves received messages from the ring buffer to a persistent queue before processing. This avoids message loss if a client reconnects whilst messages are sitting in the buffer waiting to be processed.
