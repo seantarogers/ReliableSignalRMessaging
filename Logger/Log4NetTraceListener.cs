@@ -1,5 +1,6 @@
 ﻿namespace Logger
 {
+    using System;
     using System.Diagnostics;
 
     using log4net;
@@ -8,19 +9,33 @@
     public class Log4NetTraceListener : TraceListener
     {
         private static ILog log;
-        private readonly object thisLock = new object();
+        private static readonly object ThisLock = new object();
 
         public override void Write(string message)
         {
-            InfoFormat(this, message);
+            try
+            {
+                InfoFormat(this, message);
+            }
+            catch (Exception)
+            {
+                // ignored - if there is a problem with the trace being written out I do not want to fault the host
+            }
         }
 
         public override void WriteLine(string message)
         {
-            InfoFormat(this, message);
+            try
+            {
+                InfoFormat(this, message);
+            }
+            catch (Exception)
+            {
+                // ignored - if there is a problem with the trace being written out I do not want to fault the host
+            }
         }
 
-        private void InfoFormat(object source, string infoMessage)
+        private static void InfoFormat(object source, string infoMessage)
         {
             SetUpLog(source);
             if (log.IsInfoEnabled)
@@ -29,9 +44,9 @@
             }
         }
 
-        private void SetUpLog(object source)
+        private static void SetUpLog(object source)
         {
-            lock (thisLock)
+            lock (ThisLock)
             {
                 if (log == null)
                 {
