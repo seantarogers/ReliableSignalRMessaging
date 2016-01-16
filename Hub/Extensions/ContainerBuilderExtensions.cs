@@ -2,9 +2,11 @@
 {
     using Autofac;
 
-    using Hub.Managers.PFIntRemotePublisher.Application.Event.Managers;
+    using Managers.PFIntRemotePublisher.Application.Event.Managers;
 
     using Hubs;
+
+    using Logger;
 
     using Managers;
 
@@ -17,10 +19,11 @@
         public static ContainerBuilder RegisterComponents(this ContainerBuilder containerBuilder)
         {
             containerBuilder.RegisterType<BackOfficeHub>().ExternallyOwned();
-            containerBuilder.RegisterType<BrokerConnectionManager>().As<IBrokerConnectionManager>();
-            containerBuilder.RegisterType<AuditContext>().As<IAuditContext>();
-            containerBuilder.RegisterType<JsonSerializer>().As<IJsonSerializer>();
-            
+            containerBuilder.RegisterType<BrokerConnectionManager>().As<IBrokerConnectionManager>().SingleInstance(); ;
+            containerBuilder.RegisterType<AuditContext>().As<IAuditContext>(); //not a singleton, uses a lifetime scope to dispose in the hub.
+            containerBuilder.RegisterType<JsonSerializer>().As<IJsonSerializer>().SingleInstance();
+            containerBuilder.RegisterType<MessagingLogger>().As<IMessagingLogger>().SingleInstance();
+
             return containerBuilder;
         }
     }

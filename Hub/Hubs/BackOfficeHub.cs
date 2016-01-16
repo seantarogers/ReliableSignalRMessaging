@@ -5,9 +5,14 @@
     using System.Linq;
     using System.Security.Claims;
     using System.Threading.Tasks;
+
+    using Autofac;
+
     using Contracts;
 
     using IdentityInfrastructure.Constants;
+
+    using Logger;
 
     using Managers;
 
@@ -29,20 +34,21 @@
         private readonly IBus bus;
         private readonly IBrokerConnectionManager brokerConnectionManager;
 
-        private readonly IJsonSerializer jsonSerializer;
+        private readonly IMessagingLogger messagingLogger;
 
-        private readonly IAuditContext auditContext;
+        private readonly IJsonSerializer jsonSerializer;
         
         public BackOfficeHub(
             IBus bus, 
             IBrokerConnectionManager brokerConnectionManager,
             IAuditContext auditContext, 
-            IJsonSerializer jsonSerializer)
+            IJsonSerializer jsonSerializer, 
+            IMessagingLogger messagingLogger)
         {
             this.bus = bus;
             this.brokerConnectionManager = brokerConnectionManager;
-            this.auditContext = auditContext;
             this.jsonSerializer = jsonSerializer;
+            this.messagingLogger = messagingLogger;
         }
 
         //Note: no implementation of publish methods as it is done via the hub context...
@@ -58,7 +64,7 @@
             }
             catch (Exception exception)
             {
-                Console.WriteLine("There has been an exception: {0}", exception);
+                messagingLogger.ErrorFormat(this, "There has been an exception: {0}", exception);
                 throw;
             }
             return base.OnDisconnected(stopCalled);
@@ -75,7 +81,7 @@
             }
             catch (Exception exception)
             {
-                Console.WriteLine("There has been an exception: {0}", exception);
+                messagingLogger.ErrorFormat(this, "There has been an exception: {0}", exception);
                 throw;
             }
             return base.OnReconnected();
@@ -93,7 +99,7 @@
             }
             catch (Exception exception)
             {
-                Console.WriteLine("There has been an exception: {0}", exception);
+                messagingLogger.ErrorFormat(this, "There has been an exception: {0}", exception);
                 throw;
             }
 
@@ -102,18 +108,23 @@
 
         private void ReplayUnacknowledgedMessagesSynchronously()
         {
-           var unacknowledgedMessages = GetUnacknowledgedMessages();
-
-            foreach (var insertDocumentIntoRemoteBackOfficeCommand in unacknowledgedMessages)
+            using (var lifetimeScope = EndpointConfig.Container.BeginLifetimeScope())
             {
-                // i know the client is connected as we are in the middle of a connection event
-                // so no need to check if they are in the dictionary
-                ResendUnacknowledgedMessageToRemoteClient(insertDocumentIntoRemoteBackOfficeCommand);
-                UpdateMessageRetries(insertDocumentIntoRemoteBackOfficeCommand);
+                var auditContext = lifetimeScope.Resolve<IAuditContext>();
+
+                var unacknowledgedMessages = GetUnacknowledgedMessages(auditContext);
+
+                foreach (var insertDocumentIntoRemoteBackOfficeCommand in unacknowledgedMessages)
+                {
+                    // i know the client is connected as we are in the middle of a connection event
+                    // so no need to check if they are in the dictionary
+                    ResendUnacknowledgedMessageToRemoteClient(insertDocumentIntoRemoteBackOfficeCommand);
+                    UpdateMessageRetries(insertDocumentIntoRemoteBackOfficeCommand, auditContext);
+                }
             }
         }
 
-        private void UpdateMessageRetries(Message replayedMessage)
+        private void UpdateMessageRetries(Message replayedMessage, IAuditContext auditContext)
         {
             using (var transaction = auditContext.BeginTransaction())
             {
@@ -132,7 +143,7 @@
             Clients.User(brokerId).InsertDocument(insertDocumentIntoRemoteBackOfficeCommand);
         }
 
-        private IEnumerable<InsertDocumentIntoRemoteBackOfficeCommand> GetUnacknowledgedMessages()
+        private IEnumerable<InsertDocumentIntoRemoteBackOfficeCommand> GetUnacknowledgedMessages(IAuditContext auditContext)
         {
             var brokerId = GetBrokerId();
             var messageType = typeof(InsertDocumentIntoRemoteBackOfficeCommand).ToString();
