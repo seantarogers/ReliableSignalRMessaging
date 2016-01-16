@@ -41,7 +41,6 @@
         public BackOfficeHub(
             IBus bus, 
             IBrokerConnectionManager brokerConnectionManager,
-            IAuditContext auditContext, 
             IJsonSerializer jsonSerializer, 
             IMessagingLogger messagingLogger)
         {
