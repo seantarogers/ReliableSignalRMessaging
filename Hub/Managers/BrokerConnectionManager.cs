@@ -57,15 +57,6 @@
                 }
             }
 
-            private static void ExpireSuperceededConnections(int brokerId)
-            {
-                var superceededBrokerConnections = BrokerConnections.Where(b => b.BrokerId == brokerId);
-                foreach (var superceededBrokerConnection in superceededBrokerConnections)
-                {
-                    superceededBrokerConnection.Expired = true;
-                }
-            }
-
             public void RemoveConnection(string connectionId)
             {
                 lock (BrokerConnections)
@@ -96,6 +87,15 @@
 
                     var brokerConnection = BrokerConnections.First(b => b.BrokerId == brokerId && !b.Expired);
                     return brokerConnection.TokenExpiresOn <= DateTime.UtcNow.AddMinutes(5);
+                }
+            }
+
+            private static void ExpireSuperceededConnections(int brokerId)
+            {
+                var superceededBrokerConnections = BrokerConnections.Where(b => b.BrokerId == brokerId);
+                foreach (var superceededBrokerConnection in superceededBrokerConnections)
+                {
+                    superceededBrokerConnection.Expired = true;
                 }
             }
         }
