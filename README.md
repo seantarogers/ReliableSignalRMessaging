@@ -2,7 +2,7 @@
 
 ## Overview
 
-A reliable SignalR server messaging framework prototype. This solution attempts to address the number of challenges when using SignalR as a server messaging framework. There are various ideas included in the prototype, depending on your architecture different combinations of them should solve the problem that SignalR does not guarentee message delivery. It adds the following reliability features:
+A reliable SignalR server messaging framework prototype. This solution attempts to address the number of challenges when using SignalR as a server messaging framework. It adds the following message reliability features:
 
 ## Reliable messaging features
 
