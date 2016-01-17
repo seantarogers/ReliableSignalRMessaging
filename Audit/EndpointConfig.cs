@@ -62,7 +62,7 @@ namespace Audit
         {
             const string HttpLocalhost = "http://localhost:8094";
             var webHost = WebApp.Start(HttpLocalhost);
-            Console.WriteLine("Successfully started the SignalR publisher on: {0}", HttpLocalhost);
+            Console.WriteLine("Successfully started audit web host on: {0}", HttpLocalhost);
         }
 
         private static IContainer CreateContainer()

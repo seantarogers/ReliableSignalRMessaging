@@ -43,7 +43,7 @@ namespace IdentityProvider
                 TokenEndpointPath = new PathString("/token"),
                 AccessTokenExpireTimeSpan = TimeSpan.FromMinutes(IdentityConstants.TokenDurationInMinutes),
                 Provider = new AuthorizationProvider(),
-                AccessTokenFormat = new JwtFormattingService(
+                AccessTokenFormat = new JwtFormatter(
                     IdentityConstants.Issuer,
                     IdentityConstants.TokenSigningKey,
                     IdentityConstants.AllowedAudienceCode)

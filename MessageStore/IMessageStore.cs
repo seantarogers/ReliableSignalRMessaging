@@ -1,11 +1,10 @@
-﻿namespace HubSubscriber.Managers
+namespace MessageStore
 {
     using System;
 
     public interface IMessageStore
     {
-        void AddMessageId(Guid messageId);
-
+        void AddMessage(Guid messageId);
         bool MessageExists(Guid messageId);
     }
 }

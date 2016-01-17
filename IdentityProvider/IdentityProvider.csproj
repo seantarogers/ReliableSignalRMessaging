@@ -102,9 +102,9 @@
     <Compile Include="Providers\AuthorizationProvider.cs" />
     <Compile Include="Providers\IAuthorizationProvider.cs" />
     <Compile Include="ServiceHost.cs" />
-    <Compile Include="Services\HmacSigningCredentialsService.cs" />
-    <Compile Include="Services\IJwtFormattingService.cs" />
-    <Compile Include="Services\JwtFormattingService.cs" />
+    <Compile Include="Services\SigningCredentialsService.cs" />
+    <Compile Include="Services\IJwtFormatter.cs" />
+    <Compile Include="Services\JwtFormatter.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>

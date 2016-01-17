@@ -48,6 +48,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		ReliableSignalRMessaging.png = ReliableSignalRMessaging.png
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MessageStore", "MessageStore\MessageStore.csproj", "{18DB8DED-32D1-4AD9-B57F-032CC6D0EED1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MessageStore.IntegrationTests", "MessageStore.IntegrationTests\MessageStore.IntegrationTests.csproj", "{28FCB9D3-84E8-45AD-AD94-4B293E06E9F5}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -126,6 +130,14 @@ Global
 		{EE8A41B6-1DE1-4B92-B605-7B19E5FDB1AC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EE8A41B6-1DE1-4B92-B605-7B19E5FDB1AC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EE8A41B6-1DE1-4B92-B605-7B19E5FDB1AC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{18DB8DED-32D1-4AD9-B57F-032CC6D0EED1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{18DB8DED-32D1-4AD9-B57F-032CC6D0EED1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{18DB8DED-32D1-4AD9-B57F-032CC6D0EED1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{18DB8DED-32D1-4AD9-B57F-032CC6D0EED1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{28FCB9D3-84E8-45AD-AD94-4B293E06E9F5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{28FCB9D3-84E8-45AD-AD94-4B293E06E9F5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{28FCB9D3-84E8-45AD-AD94-4B293E06E9F5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{28FCB9D3-84E8-45AD-AD94-4B293E06E9F5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -141,5 +153,7 @@ Global
 		{F5AD08D9-23FA-454B-8022-E86EA191A3CD} = {24073FD0-970E-436B-95E5-92013B231855}
 		{309CC00D-B184-4FCC-808A-9B50E72D47C7} = {24073FD0-970E-436B-95E5-92013B231855}
 		{E4601311-1BDD-400F-AB4F-B6EB92561155} = {23541252-56B6-4AFD-97E0-16DAD2F43088}
+		{18DB8DED-32D1-4AD9-B57F-032CC6D0EED1} = {23541252-56B6-4AFD-97E0-16DAD2F43088}
+		{28FCB9D3-84E8-45AD-AD94-4B293E06E9F5} = {24073FD0-970E-436B-95E5-92013B231855}
 	EndGlobalSection
 EndGlobal
