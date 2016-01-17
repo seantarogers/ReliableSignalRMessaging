@@ -5,13 +5,13 @@
 
     using Microsoft.Owin.Security;
 
-    public class JwtFormattingService : ISecureDataFormat<AuthenticationTicket>, IJwtFormattingService
+    public class JwtFormatter : ISecureDataFormat<AuthenticationTicket>, IJwtFormatter
     {
         private readonly string issuer;
         private readonly string machineKey;
         private readonly string allowedAudience;
         
-        public JwtFormattingService(
+        public JwtFormatter(
             string issuer,
             string machineKey,
             string allowedAudience)
@@ -40,7 +40,7 @@
                 throw new ApplicationException("ExpiresUtcNull");
             }
 
-            var signingCredentialsService = new HmacSigningCredentialsService(machineKey);
+            var signingCredentialsService = new SigningCredentialsService(machineKey);
 
             var jwtSecurityToken = new JwtSecurityToken(
                 issuer,
