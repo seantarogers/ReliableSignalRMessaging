@@ -177,7 +177,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Controllers\AcknowledgementController.cs" />
     <Compile Include="EndpointConfig.cs" />
     <Compile Include="Extensions\ContainerBuilderExtensions.cs" />
     <Compile Include="Handlers\InsertDocumentIntoRemoteBackOfficeCommandHandler.cs" />
