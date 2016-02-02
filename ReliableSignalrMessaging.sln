@@ -52,6 +52,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MessageStore", "MessageStor
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MessageStore.IntegrationTests", "MessageStore.IntegrationTests\MessageStore.IntegrationTests.csproj", "{28FCB9D3-84E8-45AD-AD94-4B293E06E9F5}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Lib", "Lib", "{08A7CF65-BDFB-4A18-9B38-3188A8DF39D5}"
+	ProjectSection(SolutionItems) = preProject
+		Lib\Esent.Interop.dll = Lib\Esent.Interop.dll
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
