@@ -18,54 +18,54 @@
 
         public void AddMessage(Guid messageId)
         {
-            CreateDatabase();
+            //CreateDatabase();
 
-            using (var session = new Session(GetInstance()))
-            {
-                JET_DBID dbid;
-                Api.JetAttachDatabase(session, DatabasePath, AttachDatabaseGrbit.None);
-                Api.JetOpenDatabase(session, DatabasePath, string.Empty, out dbid, OpenDatabaseGrbit.None);
-                using (var transaction = new Transaction(session))
-                {
-                    using (var messageTable = new Table(session, dbid, Message, OpenTableGrbit.None))
-                    {
-                        using (var updater = new Update(session, messageTable, JET_prep.Insert))
-                        {
-                            var columnId = Api.GetTableColumnid(session, messageTable, "MessageId");
-                            Api.SetColumn(session, messageTable, columnId, messageId);
+            //using (var session = new Session(GetInstance()))
+            //{
+            //    JET_DBID dbid;
+            //    Api.JetAttachDatabase(session, DatabasePath, AttachDatabaseGrbit.None);
+            //    Api.JetOpenDatabase(session, DatabasePath, string.Empty, out dbid, OpenDatabaseGrbit.None);
+            //    using (var transaction = new Transaction(session))
+            //    {
+            //        using (var messageTable = new Table(session, dbid, Message, OpenTableGrbit.None))
+            //        {
+            //            using (var updater = new Update(session, messageTable, JET_prep.Insert))
+            //            {
+            //                var columnId = Api.GetTableColumnid(session, messageTable, "MessageId");
+            //                Api.SetColumn(session, messageTable, columnId, messageId);
 
-                            var columnDesc = Api.GetTableColumnid(session, messageTable, "CreateDate");
-                            Api.SetColumn(session, messageTable, columnDesc, DateTime.UtcNow);
+            //                var columnDesc = Api.GetTableColumnid(session, messageTable, "CreateDate");
+            //                Api.SetColumn(session, messageTable, columnDesc, DateTime.UtcNow);
 
-                            updater.Save();
-                        }
-                    }
+            //                updater.Save();
+            //            }
+            //        }
 
-                    transaction.Commit(CommitTransactionGrbit.None);
-                }
-            }
+            //        transaction.Commit(CommitTransactionGrbit.None);
+            //    }
+            //}
         }
 
         public bool MessageExists(Guid messageId)
         {
-            CreateDatabase();
+            //CreateDatabase();
 
-            bool exists;
-            using (var session = new Session(GetInstance()))
-            {
-                JET_DBID dbid;
-                Api.JetAttachDatabase(session, DatabasePath, AttachDatabaseGrbit.None);
-                Api.JetOpenDatabase(session, DatabasePath, string.Empty, out dbid, OpenDatabaseGrbit.None);
-                using (var transaction = new Transaction(session))
-                using (var messageTable = new Table(session, dbid, Message, OpenTableGrbit.None))
-                {
+            //bool exists;
+            //using (var session = new Session(GetInstance()))
+            //{
+            //    JET_DBID dbid;
+            //    Api.JetAttachDatabase(session, DatabasePath, AttachDatabaseGrbit.None);
+            //    Api.JetOpenDatabase(session, DatabasePath, string.Empty, out dbid, OpenDatabaseGrbit.None);
+            //    using (var transaction = new Transaction(session))
+            //    using (var messageTable = new Table(session, dbid, Message, OpenTableGrbit.None))
+            //    {
 
-                    var messageIdColumn = Api.GetTableColumnid(session, messageTable, "MessageId");
-                    var s = Api.RetrieveColumnAsString(session, messageTable, messageIdColumn, Encoding.Unicode);
+            //        var messageIdColumn = Api.GetTableColumnid(session, messageTable, "MessageId");
+            //        var s = Api.RetrieveColumnAsString(session, messageTable, messageIdColumn, Encoding.Unicode);
                     
-                    transaction.Commit(CommitTransactionGrbit.None);
-                }
-            }
+            //        transaction.Commit(CommitTransactionGrbit.None);
+            //    }
+            //}
 
             return false;
         }
