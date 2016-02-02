@@ -25,7 +25,7 @@
             JET_COLUMNDEF columndef = new JET_COLUMNDEF();
             JET_COLUMNID columnid;
 
-            // Initialize ESENT. Setting JET_param.CircularLog to 1 means ESENT will automatically
+            // Initialize ESENT. Setting JET_param.CircularLog to 1 means ESENT will automatically    br
             // delete unneeded logfiles. JetInit will inspect the logfiles to see if the last
             // shutdown was clean. If it wasn't (e.g. the application crashed) recovery will be
             // run automatically bringing the database to a consistent state.
@@ -402,6 +402,8 @@
                         }
                     }
                 }
+            }
+
             }
         }
     }
