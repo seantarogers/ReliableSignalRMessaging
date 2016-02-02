@@ -64,10 +64,6 @@
       <Project>{099d7993-0968-4bc6-b6a9-310277e55cdb}</Project>
       <Name>HubSubscriber</Name>
     </ProjectReference>
-    <ProjectReference Include="..\MessageStore\MessageStore.csproj">
-      <Project>{18db8ded-32d1-4ad9-b57f-032cc6d0eed1}</Project>
-      <Name>MessageStore</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Messages\Messages.csproj">
       <Project>{f0b6afa4-4848-4b13-b4cc-a0532866cdea}</Project>
       <Name>Messages</Name>

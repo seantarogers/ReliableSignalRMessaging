@@ -4,9 +4,9 @@
 
     using Services;
 
-    using Messages.Commands;
+    using Managers;
 
-    using MessageStore;
+    using Messages.Commands;
 
     using NServiceBus;
 
@@ -32,33 +32,32 @@
         public void Handle(InsertDocumentIntoRemoteBackOfficeCommand insertCommand)
         {
             //note: using commands so that the remote bus does not need a persistence layer
-            
-            //if (messageStore.MessageExists(insertCommand.Id))
-            //{
-            //    bus.Send(new SendAcknowledgementCommand
-            //                 {
-            //                     CorrelationId = insertCommand.CorrelationId, Success = true 
-            //                 });
-            //    return;
-            //}
+            if (messageStore.MessageExists(insertCommand.Id))
+            {
+                bus.Send(new SendAcknowledgementCommand
+                             {
+                                 CorrelationId = insertCommand.CorrelationId, Success = true 
+                             });
+                return;
+            }
 
-            //using (var transactionScope = new TransactionScope())
-            //{
-            //    messageStore.AddMessage(insertCommand.Id);
-            //    var result = backOfficeService.InsertDocument();
+            using (var transactionScope = new TransactionScope())
+            {
+                messageStore.AddMessageId(insertCommand.Id);
+                var result = backOfficeService.InsertDocument();
 
-            //    if (result)
-            //    {
-            //        bus.Send(new SendAcknowledgementCommand
-            //                      {
-            //                          CorrelationId = insertCommand.CorrelationId, Success = true
-            //                      });
+                if (result)
+                {
+                    bus.Send(new SendAcknowledgementCommand
+                                  {
+                                      CorrelationId = insertCommand.CorrelationId, Success = true
+                                  });
 
-            //        //commit messageid to message store if successfully inserted to back office.
-            //        transactionScope.Complete();
-            //        return;
-            //    }
-            //}
+                    //commit messageid to message store if successfully inserted to back office.
+                    transactionScope.Complete();
+                    return;
+                }
+            }
 
             bus.Send(
                 new SendAcknowledgementCommand

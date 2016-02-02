@@ -10,8 +10,6 @@ namespace HubSubscriber.UnitTests
 
     using Messages.Commands;
 
-    using MessageStore;
-
     using Moq;
 
     using NServiceBus;
@@ -58,7 +56,7 @@ namespace HubSubscriber.UnitTests
                 b => b.Send(It.Is<SendAcknowledgementCommand>(s => s.CorrelationId == command.CorrelationId && s.Success)),
                 Times.Once());
 
-            messageStore.Verify(m => m.AddMessage(It.IsAny<Guid>()), Times.Never);
+            messageStore.Verify(m => m.AddMessageId(It.IsAny<Guid>()), Times.Never);
         }
 
         [Test]
@@ -79,7 +77,7 @@ namespace HubSubscriber.UnitTests
                 b => b.Send(It.Is<SendAcknowledgementCommand>(s => s.CorrelationId == command.CorrelationId  && s.Success)),
                 Times.Once());
 
-            messageStore.Verify(m => m.AddMessage(It.IsAny<Guid>()));
+            messageStore.Verify(m => m.AddMessageId(It.IsAny<Guid>()));
         }
 
         [Test]

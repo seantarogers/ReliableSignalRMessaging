@@ -10,8 +10,9 @@ namespace IdentityProvider
 
     using IdentityInfrastructure.Constants;
 
-    using Providers;
     using Services;
+
+    using Providers;
 
     using Microsoft.Owin;
     using Microsoft.Owin.Security.OAuth;

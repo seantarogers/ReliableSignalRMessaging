@@ -5,9 +5,6 @@
     using Logger;
 
     using Managers;
-
-    using MessageStore;
-
     using Services;
 
     public static class ContainerBuilderExtensions
