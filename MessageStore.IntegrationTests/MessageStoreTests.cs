@@ -185,7 +185,7 @@
 
             }
         }
-        
+
 
         [Test, Explicit]
         public void BuildDatabase_AndInsert()
@@ -218,14 +218,15 @@
                         {
                             JET_TABLEID tableid;
                             Api.JetCreateTable(session, dbid, "Message", 0, 100, out tableid);
-                            
+
                             JET_COLUMNID idColumnId;
                             var idColumnDefinition = new JET_COLUMNDEF
                                                          {
                                                              cbMax = 16,
                                                              coltyp = JET_coltyp.Binary,
                                                              grbit =
-                                                                 ColumndefGrbit.ColumnFixed | ColumndefGrbit.ColumnNotNULL
+                                                                 ColumndefGrbit.ColumnFixed
+                                                                 | ColumndefGrbit.ColumnNotNULL
                                                          };
                             Api.JetAddColumn(session, tableid, "Id", idColumnDefinition, null, 0, out idColumnId);
 
@@ -234,21 +235,40 @@
                                                                   {
                                                                       coltyp = JET_coltyp.Currency,
                                                                       grbit = ColumndefGrbit.ColumnNotNULL
-                            };
-                            Api.JetAddColumn(session, tableid, "DateCreated", dateCreatedColumnDefinition, null, 0, out dateCreatedColumnid);
+                                                                  };
+                            Api.JetAddColumn(
+                                session,
+                                tableid,
+                                "DateCreated",
+                                dateCreatedColumnDefinition,
+                                null,
+                                0,
+                                out dateCreatedColumnid);
 
 
                             // Define table indices
                             var indexDef = "+Id\0\0";
-                            Api.JetCreateIndex(session, tableid, "id_index",
-                                               CreateIndexGrbit.IndexPrimary, indexDef, indexDef.Length, 100);
+                            Api.JetCreateIndex(
+                                session,
+                                tableid,
+                                "id_index",
+                                CreateIndexGrbit.IndexPrimary,
+                                indexDef,
+                                indexDef.Length,
+                                100);
 
                             indexDef = "+DateCreated\0\0";
-                            Api.JetCreateIndex(session, tableid, "datecreated_index",
-                                               CreateIndexGrbit.IndexDisallowNull, indexDef, indexDef.Length, 100);
+                            Api.JetCreateIndex(
+                                session,
+                                tableid,
+                                "datecreated_index",
+                                CreateIndexGrbit.IndexDisallowNull,
+                                indexDef,
+                                indexDef.Length,
+                                100);
 
                             transaction.Commit(CommitTransactionGrbit.LazyFlush);
-                            
+
                         }
 
                         Api.JetCloseDatabase(session, dbid, CloseDatabaseGrbit.None);
@@ -329,7 +349,7 @@
 
 
             var minDateTime = DateTime.Now;
-            
+
             var messageIdsToDelete = new List<Guid>();
             using (var databaseInstance = new Instance(DatabasePath))
             {
@@ -403,8 +423,7 @@
                     }
                 }
             }
-
-            }
         }
     }
 }
+    
