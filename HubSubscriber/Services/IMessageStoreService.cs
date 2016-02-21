@@ -1,8 +1,8 @@
-﻿namespace HubSubscriber.Managers
+﻿namespace HubSubscriber.Services
 {
     using System;
 
-    public interface IMessageStore
+    public interface IMessageStoreService
     {
         void AddMessageId(Guid messageId);
 

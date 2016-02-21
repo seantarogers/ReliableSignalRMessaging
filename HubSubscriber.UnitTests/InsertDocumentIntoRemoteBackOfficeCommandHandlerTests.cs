@@ -23,7 +23,7 @@ namespace HubSubscriber.UnitTests
 
         private Mock<IBackOfficeService> backOfficeService;
 
-        private Mock<IMessageStore> messageStore;
+        private Mock<IMessageStoreService> messageStore;
 
         private InsertDocumentIntoRemoteBackOfficeCommandHandler sut;
 
@@ -32,7 +32,7 @@ namespace HubSubscriber.UnitTests
         {
             bus = new Mock<IBus>();
             backOfficeService = new Mock<IBackOfficeService>();
-            messageStore = new Mock<IMessageStore>();
+            messageStore = new Mock<IMessageStoreService>();
 
             sut = new InsertDocumentIntoRemoteBackOfficeCommandHandler(
                 bus.Object,

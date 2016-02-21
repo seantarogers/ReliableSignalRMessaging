@@ -96,8 +96,7 @@
     <Compile Include="IServiceHost.cs" />
     <Compile Include="Managers\HubConnectionManager.cs" />
     <Compile Include="Managers\IHubConnectionManager.cs" />
-    <Compile Include="Managers\IMessageStore.cs" />
-    <Compile Include="Managers\MessageStoreManager.cs" />
+    <Compile Include="Services\IMessageStoreService.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ServiceHost.cs" />
@@ -105,6 +104,7 @@
     <Compile Include="Services\BackOfficeService.cs" />
     <Compile Include="Services\IAccessTokenService.cs" />
     <Compile Include="Services\IBackOfficeService.cs" />
+    <Compile Include="Services\MessageStoreService.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config">

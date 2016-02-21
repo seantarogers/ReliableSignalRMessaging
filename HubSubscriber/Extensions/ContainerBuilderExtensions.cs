@@ -19,8 +19,8 @@
                 .As<IAccessTokenService>()
                 .SingleInstance();
 
-            containerBuilder.RegisterType<MessageStore>()
-                .As<IMessageStore>();
+            containerBuilder.RegisterType<MessageStoreService>()
+                .As<IMessageStoreService>();
 
             containerBuilder.RegisterType<BackOfficeService>()
                 .As<IBackOfficeService>();

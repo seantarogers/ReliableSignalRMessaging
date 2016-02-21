@@ -15,24 +15,24 @@
     {
         private readonly IBus bus;
 
-        private readonly IMessageStore messageStore;
+        private readonly IMessageStoreService messageStoreService;
 
         private readonly IBackOfficeService backOfficeService;
         
         public InsertDocumentIntoRemoteBackOfficeCommandHandler(
             IBus bus, 
-            IMessageStore messageStore, 
+            IMessageStoreService messageStoreService, 
             IBackOfficeService backOfficeService)
         {
             this.bus = bus;
-            this.messageStore = messageStore;
+            this.messageStoreService = messageStoreService;
             this.backOfficeService = backOfficeService;
         }
 
         public void Handle(InsertDocumentIntoRemoteBackOfficeCommand insertCommand)
         {
             //note: using commands so that the remote bus does not need a persistence layer
-            if (messageStore.MessageExists(insertCommand.Id))
+            if (messageStoreService.MessageExists(insertCommand.Id))
             {
                 bus.Send(new SendAcknowledgementCommand
                              {
@@ -43,7 +43,7 @@
 
             using (var transactionScope = new TransactionScope())
             {
-                messageStore.AddMessageId(insertCommand.Id);
+                messageStoreService.AddMessageId(insertCommand.Id);
                 var result = backOfficeService.InsertDocument();
 
                 if (result)
