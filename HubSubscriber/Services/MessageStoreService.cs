@@ -11,10 +11,14 @@
         private const string InstancePath = @"C:\MessageStore\";
 
         //todo abstract esent plumbing, but for the POC we want to see how it works...
+        
+        static MessageStoreService()
+        {
+            CreateDatabaseIfRequired();
+        }
 
         public void AddMessageId(Guid messageId)
         {
-            CreateDatabase();
             if (HasMessageAlreadyBeenProcessed(messageId))
             {
                 return;
@@ -25,10 +29,9 @@
 
         public bool MessageExists(Guid messageId)
         {
-            CreateDatabase();
             return HasMessageAlreadyBeenProcessed(messageId);
         }
-        
+
         private static void InsertMessageIntoDatabase(Guid messageId)
         {
             using (var databaseInstance = new Instance(DatabasePath))
@@ -38,7 +41,7 @@
             }
         }
 
-        private static void CreateDatabase()
+        private static void CreateDatabaseIfRequired()
         {
             using (var databaseInstance = new Instance(DatabasePath))
             {
